@@ -1,40 +1,728 @@
-Abraham Judah
-HOME
-WRITING
-ABOUT
-WELCOME
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Abraham Judah</title>
+  <style>
+    /* ─── Variables ─── */
+    :root {
+      --bg:           #fcf6f0;
+      --bg-card:      #fffcf9;
+      --bg-darker:    #f0e8df;
+      --text:         #211b12;
+      --muted:        #776252;
+      --accent:       #a8482b;
+      --accent-hover: #8a3a22;
+      --accent-light: #fdf0eb;
+      --border:       #e5d9ce;
 
-Thinking out loud about policy, data,
-and everything in between.
+      --tag-policy-bg:   #fff0e8; --tag-policy-fg:   #c45e1a;
+      --tag-audit-bg:    #f0ede8; --tag-audit-fg:    #5c4a3a;
+      --tag-econ-bg:     #d9eae6; --tag-econ-fg:     #2e6857;
+      --tag-ai-bg:       #e3e9f6; --tag-ai-fg:       #2d4677;
+      --tag-tennis-bg:   #e0f0e8; --tag-tennis-fg:   #2a6040;
+      --tag-personal-bg: #ece2f2; --tag-personal-fg: #663577;
+    }
 
-I'm Abraham - a civil servant and graduate student at UC Berkeley's Goldman School of Public Policy. I have a decade of experience in auditing governments, and now I write about what I find, what I'm learning, and what keeps me up at night.
+    /* ─── Reset ─── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    a { text-decoration: none; }
+    button { font-family: inherit; cursor: pointer; }
 
-READ MY WRITING
-ABOUT ME →
-RECENT POSTS
-May 10, 2026
-ECONOMICS
-Why do informal workers resist formalization?
-A puzzling pattern in development economics: when governments offer pathways into the formal economy, many workers and small firms choose to stay out. Here's what the evidence says about why.
-READ MORE →
-April 24, 2026
-PERSONAL
-On being a student of the obvious
-Economics is sometimes mocked for proving things everyone already knows. But there's something valuable — even radical — about taking the obvious seriously and asking whether it's actually true.
-READ MORE →
-March 28, 2026
-AI
-When the state delegates to algorithms
-My research tries to understand what happens to accountability when government decisions are made by automated systems. The short answer: it gets complicated.
-READ MORE →
-February 14, 2026
-AUDIT
-What auditing the NRC taught me about data and power
-Auditing India's National Register of Citizens was the most consequential work of my career. The anomalies we found weren't just statistical noise — they were people's lives.
-READ MORE →
-January 20, 2026
-PUBLIC POLICY
-The quiet crisis in public sector technology
-Governments are deploying technology faster than they can govern it. The result is a widening gap between what digital government promises and what it actually delivers.
-READ MORE →
-© 2026 Abraham Judah  ·  Written with care  ·  abrahamjudah@berkeley.edu
+    /* ─── Base ─── */
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      font-size: 15px;
+      line-height: 1.75;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ─── Header ─── */
+    header {
+      position: sticky; top: 0; z-index: 100;
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+      padding: 0 48px;
+      height: 58px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      font-family: Georgia, 'Times New Roman', serif;
+      font-size: 17px;
+      font-weight: bold;
+      color: var(--text);
+      cursor: pointer;
+      letter-spacing: 0.01em;
+    }
+
+    nav { display: flex; gap: 32px; align-items: center; }
+
+    nav a {
+      font-size: 11px;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+      font-weight: 600;
+      color: var(--muted);
+      cursor: pointer;
+      transition: color 0.18s;
+      border: none; background: none; padding: 0;
+    }
+    nav a:hover, nav a.active { color: var(--accent); }
+
+    /* ─── Pages ─── */
+    .page { display: none; flex: 1; }
+    .page.active { display: block; }
+
+    /* ─── Shared layout ─── */
+    .container {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 48px;
+    }
+    .container-narrow {
+      max-width: 660px;
+      margin: 0 auto;
+      padding: 0 48px;
+    }
+
+    .section-label {
+      font-size: 10px;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      color: var(--muted);
+      font-weight: 600;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 4px;
+    }
+
+    /* ─── Tags ─── */
+    .tag {
+      display: inline-block;
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 3px 9px;
+      border-radius: 3px;
+    }
+    .tag-policy   { background: var(--tag-policy-bg);   color: var(--tag-policy-fg); }
+    .tag-audit    { background: var(--tag-audit-bg);    color: var(--tag-audit-fg); }
+    .tag-econ     { background: var(--tag-econ-bg);     color: var(--tag-econ-fg); }
+    .tag-ai       { background: var(--tag-ai-bg);       color: var(--tag-ai-fg); }
+    .tag-tennis   { background: var(--tag-tennis-bg);   color: var(--tag-tennis-fg); }
+    .tag-personal { background: var(--tag-personal-bg); color: var(--tag-personal-fg); }
+
+    /* ─── HOME ─── */
+    .hero {
+      max-width: 660px;
+      margin: 72px auto 56px;
+      padding: 0 48px;
+    }
+    .hero-label {
+      font-size: 10px;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      color: var(--accent);
+      font-weight: 700;
+      margin-bottom: 18px;
+    }
+    .hero h1 {
+      font-family: Georgia, serif;
+      font-size: 34px;
+      line-height: 1.35;
+      font-weight: normal;
+      color: var(--text);
+      margin-bottom: 20px;
+    }
+    .hero h1 em { color: var(--accent); font-style: italic; }
+    .hero p {
+      font-size: 15.5px;
+      line-height: 1.85;
+      color: var(--muted);
+      margin-bottom: 28px;
+      max-width: 540px;
+    }
+    .hero-actions { display: flex; gap: 16px; align-items: center; }
+
+    .btn-primary {
+      display: inline-block;
+      background: var(--accent);
+      color: #fff;
+      padding: 10px 26px;
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      font-weight: 700;
+      border: none;
+      transition: background 0.18s;
+    }
+    .btn-primary:hover { background: var(--accent-hover); }
+
+    .btn-ghost {
+      display: inline-block;
+      color: var(--accent);
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      font-weight: 700;
+      border: none;
+      background: none;
+      padding: 0;
+      transition: color 0.18s;
+    }
+    .btn-ghost:hover { color: var(--accent-hover); }
+
+    /* ─── Post cards ─── */
+    .post-card {
+      display: grid;
+      grid-template-columns: 110px 1fr;
+      gap: 28px;
+      padding: 26px 0;
+      border-bottom: 1px solid var(--border);
+      cursor: pointer;
+    }
+    .post-card:last-child { border-bottom: none; }
+    .post-card:hover .post-title { color: var(--accent); }
+
+    .post-meta { padding-top: 3px; }
+    .post-date {
+      display: block;
+      font-size: 11.5px;
+      color: var(--muted);
+      margin-bottom: 10px;
+      line-height: 1.3;
+    }
+    .post-title {
+      font-family: Georgia, serif;
+      font-size: 17.5px;
+      line-height: 1.45;
+      color: var(--text);
+      margin: 10px 0 8px;
+      transition: color 0.18s;
+      font-weight: normal;
+    }
+    .post-excerpt {
+      font-size: 13.5px;
+      line-height: 1.75;
+      color: var(--muted);
+    }
+    .read-more {
+      display: inline-block;
+      margin-top: 10px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+
+    .posts-wrap {
+      padding-bottom: 72px;
+    }
+
+    /* ─── WRITING page ─── */
+    .writing-head {
+      padding: 60px 0 36px;
+    }
+    .writing-head h2 {
+      font-family: Georgia, serif;
+      font-size: 26px;
+      font-weight: normal;
+      margin-bottom: 10px;
+    }
+    .writing-head p {
+      font-size: 14px;
+      color: var(--muted);
+      margin-bottom: 24px;
+    }
+
+    .filter-bar { display: flex; gap: 8px; flex-wrap: wrap; }
+    .filter-btn {
+      padding: 6px 18px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      border: 1.5px solid var(--border);
+      background: transparent;
+      color: var(--muted);
+      border-radius: 40px;
+      transition: all 0.18s;
+    }
+    .filter-btn:hover, .filter-btn.active {
+      border-color: var(--accent);
+      color: var(--accent);
+      background: var(--accent-light);
+    }
+
+    /* ─── ABOUT page ─── */
+    .about-wrap { padding: 60px 0 80px; }
+    .about-wrap > h2 {
+      font-family: Georgia, serif;
+      font-size: 26px;
+      font-weight: normal;
+      margin-bottom: 24px;
+    }
+    .about-wrap p {
+      font-size: 15px;
+      line-height: 1.85;
+      color: var(--text);
+      margin-bottom: 16px;
+    }
+    .about-wrap p em { color: var(--accent); font-style: italic; }
+
+    .about-section-label {
+      font-size: 10px;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      color: var(--accent);
+      font-weight: 700;
+      margin: 40px 0 18px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .exp-item { margin-bottom: 22px; }
+    .exp-title { font-size: 14px; font-weight: 600; color: var(--text); }
+    .exp-sub {
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 5px;
+    }
+    .exp-item p {
+      font-size: 13.5px;
+      color: var(--muted);
+      margin-bottom: 0;
+      line-height: 1.7;
+    }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 4px;
+    }
+    .skill-pill {
+      background: var(--bg-darker);
+      padding: 9px 14px;
+      font-size: 12.5px;
+      color: var(--muted);
+      border-radius: 4px;
+    }
+
+    .pub-item { margin-bottom: 16px; }
+    .pub-title { font-size: 14px; font-weight: 600; color: var(--text); }
+    .pub-sub { font-size: 13px; color: var(--muted); }
+    .pub-sub a { color: var(--accent); }
+
+    /* ─── POST VIEW ─── */
+    .back-btn {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      background: none;
+      border: none;
+      padding: 0;
+      margin-bottom: 36px;
+      cursor: pointer;
+      transition: color 0.18s;
+    }
+    .back-btn:hover { color: var(--accent); }
+
+    .post-view { padding: 60px 0 80px; }
+
+    .post-view-header { margin-bottom: 38px; }
+    .post-view-header .tag { margin-bottom: 14px; }
+    .post-view-header h1 {
+      font-family: Georgia, serif;
+      font-size: 27px;
+      line-height: 1.4;
+      font-weight: normal;
+      color: var(--text);
+      margin-bottom: 10px;
+    }
+    .post-view-date { font-size: 12px; color: var(--muted); }
+
+    .post-body p {
+      font-family: Georgia, serif;
+      font-size: 16.5px;
+      line-height: 1.9;
+      color: var(--text);
+      margin-bottom: 22px;
+    }
+    .post-body p:first-of-type::first-letter {
+      font-size: 56px;
+      float: left;
+      line-height: 0.82;
+      margin: 7px 10px 0 0;
+      color: var(--accent);
+      font-family: Georgia, serif;
+    }
+
+    /* ─── Footer ─── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 22px 48px;
+      text-align: center;
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: auto;
+    }
+    footer a { color: var(--accent); }
+
+    /* ─── Responsive ─── */
+    @media (max-width: 600px) {
+      header { padding: 0 20px; }
+      .hero, .container, .container-narrow { padding-left: 20px; padding-right: 20px; }
+      .hero h1 { font-size: 26px; }
+      .post-card { grid-template-columns: 1fr; gap: 6px; }
+      .post-meta { display: flex; align-items: center; gap: 12px; }
+      .post-date { margin-bottom: 0; }
+      .skills-grid { grid-template-columns: 1fr; }
+      nav { gap: 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════════════════ HEADER ═══════════════════════════ -->
+<header>
+  <span class="logo" onclick="showPage('home')">Abraham Judah</span>
+  <nav>
+    <a id="nav-home"    onclick="showPage('home')"    class="active">Home</a>
+    <a id="nav-writing" onclick="showPage('writing')">Writing</a>
+    <a id="nav-about"   onclick="showPage('about')">About</a>
+  </nav>
+</header>
+
+<!-- ═══════════════════════════ HOME ═══════════════════════════ -->
+<div id="page-home" class="page active">
+
+  <div class="hero">
+    <p class="hero-label">Welcome</p>
+    <h1>Thinking out loud about <em>policy, data,</em><br>and everything in between.</h1>
+    <p>I'm Abraham - a civil servant and graduate student at UC Berkeley's Goldman School of Public Policy. I have a decade of experience in auditing governments, and now I write about what I find, what I'm learning, and what keeps me up at night.</p>
+    <div class="hero-actions">
+      <button class="btn-primary" onclick="showPage('writing')">Read My Writing</button>
+      <button class="btn-ghost"   onclick="showPage('about')">About Me →</button>
+    </div>
+  </div>
+
+  <div class="container">
+    <p class="section-label">Recent Posts</p>
+    <div class="posts-wrap" id="home-posts"></div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════ WRITING ═══════════════════════════ -->
+<div id="page-writing" class="page">
+  <div class="container">
+    <div class="writing-head">
+      <h2>Writing</h2>
+      <p>Posts across public policy, economics, AI, audit, tennis, and life.</p>
+      <div class="filter-bar">
+        <button class="filter-btn active" onclick="filterPosts('all', this)">All</button>
+        <button class="filter-btn" onclick="filterPosts('Public Policy', this)">Public Policy</button>
+        <button class="filter-btn" onclick="filterPosts('Audit', this)">Audit</button>
+        <button class="filter-btn" onclick="filterPosts('Economics', this)">Economics</button>
+        <button class="filter-btn" onclick="filterPosts('AI', this)">AI</button>
+        <button class="filter-btn" onclick="filterPosts('Tennis', this)">Tennis</button>
+        <button class="filter-btn" onclick="filterPosts('Personal', this)">Personal</button>
+      </div>
+    </div>
+    <div class="posts-wrap" id="writing-posts"></div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════ ABOUT ═══════════════════════════ -->
+<div id="page-about" class="page">
+  <div class="container-narrow">
+    <div class="about-wrap">
+      <h2>About Me</h2>
+      <p>I'm Abraham Judah Cephas — a civil servant in Government of India and currently a Master's candidate at UC Berkeley's Goldman School of Public Policy (2025–2027). My focus is AI safety and governance, technology policy, and development economics.</p>
+      <p>I spent a decade at the Comptroller and Auditor General of India auditing digital government systems, uncovering procurement fraud, and working at the intersection of data, accountability, and public institutions. My research now asks: <em>what happens when the state delegates decisions to algorithms?</em></p>
+      <p>Outside of work, I follow economics obsessively, play tennis more than I probably should, and try to write clearly about complicated things.</p>
+
+      <p class="about-section-label">Education</p>
+      <div class="exp-item">
+        <p class="exp-title">Master of Development Practice (MDP) in Public Policy</p>
+        <p class="exp-sub">Goldman School of Public Policy, UC Berkeley &nbsp;·&nbsp; 2025–2027</p>
+        <p>Focus: AI Safety &amp; Governance, Technology Policy, Development Economics.</p>
+      </div>
+      <div class="exp-item">
+        <p class="exp-title">Master of Arts in Economics</p>
+        <p class="exp-sub">Indira Gandhi National Open University, New Delhi &nbsp;·&nbsp; 2019–2021</p>
+      </div>
+      <div class="exp-item">
+        <p class="exp-title">Bachelor of Engineering, Electrical &amp; Electronics Engineering</p>
+        <p class="exp-sub">Anna University, Chennai &nbsp;·&nbsp; 2007–2012</p>
+      </div>
+
+      <p class="about-section-label">Experience</p>
+      <div class="exp-item">
+        <p class="exp-title">Senior Deputy Accountant General / Director of Audit</p>
+        <p class="exp-sub">Comptroller and Auditor General of India, Chennai &nbsp;·&nbsp; 2021–2025</p>
+        <p>Led digital systems audits of government e-procurement platforms; identified bid-rigging and fraud through machine learning methods; part of the nodal team for India's audit digitisation project (OIOS).</p>
+      </div>
+      <div class="exp-item">
+        <p class="exp-title">Deputy Accountant General / Deputy Director of Audit</p>
+        <p class="exp-sub">Comptroller and Auditor General of India, Guwahati &nbsp;·&nbsp; 2016–2021</p>
+        <p>Led the audit of India's National Register of Citizens (NRC), exposing widespread data tampering and financial irregularities. Developed a Tableau-based risk-assessment model for audit prioritisation.</p>
+      </div>
+      <div class="exp-item">
+        <p class="exp-title">Assistant Director</p>
+        <p class="exp-sub">Department of Telecom, New Delhi &nbsp;·&nbsp; 2015–2016</p>
+      </div>
+      <div class="exp-item">
+        <p class="exp-title">Assistant Manager</p>
+        <p class="exp-sub">State Bank of India, Tiruvallur &nbsp;·&nbsp; 2014–2015</p>
+      </div>
+
+      <p class="about-section-label">Skills &amp; Tools</p>
+      <div class="skills-grid">
+        <div class="skill-pill">Python · R · Tableau · QGIS · SQL</div>
+        <div class="skill-pill">Machine Learning · PyTorch · Scikit-learn</div>
+        <div class="skill-pill">Causal Inference · DiD · RDD · IV · RCTs</div>
+        <div class="skill-pill">IT Systems Audit · INTOSAI / ISSAI</div>
+        <div class="skill-pill">AI Governance · EU AI Act · ISO AI</div>
+        <div class="skill-pill">Tamil (native) · Hindi (working) · English</div>
+      </div>
+
+      <p class="about-section-label">Publications</p>
+      <div class="pub-item">
+        <p class="pub-title">Performance Audit of e-Procurement in Tamil Nadu</p>
+        <p class="pub-sub">CAG Report No. 4 of 2023 &nbsp;·&nbsp; <a href="https://tinyurl.com/2dxfxpfh" target="_blank">View report →</a></p>
+      </div>
+      <div class="pub-item">
+        <p class="pub-title">Performance Audit of HR &amp; Financial Management System</p>
+        <p class="pub-sub">CAG Report No. 3 of 2023 &nbsp;·&nbsp; <a href="https://tinyurl.com/mrxwmvky" target="_blank">View report →</a></p>
+      </div>
+
+      <p class="about-section-label">Contact</p>
+      <p>Reach me at <a href="mailto:abrahamjudah@berkeley.edu" style="color:var(--accent)">abrahamjudah@berkeley.edu</a></p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════ SINGLE POST ═══════════════════════════ -->
+<div id="page-post" class="page">
+  <div class="container-narrow">
+    <div class="post-view">
+      <button class="back-btn" onclick="goBack()">← Back</button>
+      <div id="post-content"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════ FOOTER ═══════════════════════════ -->
+<footer>
+  © 2026 Abraham Judah &nbsp;·&nbsp; Written with care &nbsp;·&nbsp;
+  <a href="mailto:abrahamjudah@berkeley.edu">abrahamjudah@berkeley.edu</a>
+</footer>
+
+<script>
+/* ─── Posts data ─── */
+const POSTS = [
+  {
+    id: 1,
+    date: "May 10, 2026",
+    category: "Economics",
+    tagCls: "tag-econ",
+    title: "Why do informal workers resist formalization?",
+    excerpt: "A puzzling pattern in development economics: when governments offer pathways into the formal economy, many workers and small firms choose to stay out. Here's what the evidence says about why.",
+    body: `<p>One of the most puzzling patterns in development economics is the resistance to formalization. Governments across the Global South have created incentives — tax breaks, access to credit, formal contracts, social insurance — to bring informal workers and firms into the formal economy. And yet, many choose to stay out.</p>
+<p>Why? The standard explanation is that formality is too costly. Regulations impose compliance burdens that small firms can't bear. This is true, but it's only part of the story.</p>
+<p>A growing body of evidence points to something more interesting: for many informal workers, informality is a rational choice, not just a constraint. The informal economy offers flexibility — in hours, in location, in the ability to combine multiple income sources — that formal employment often doesn't. This is especially true for women balancing caregiving responsibilities, or for workers with volatile incomes who benefit from being able to adjust their work arrangements rapidly.</p>
+<p>There's also the question of trust. Formalization requires interacting with government institutions — registering businesses, paying into pension systems, filing taxes. In contexts where those institutions are weak, corrupt, or perceived as predatory, the calculus changes. Why pay into a pension system you don't trust to deliver? Why register your business when the registration process is itself a source of extraction?</p>
+<p>None of this means that formalization is bad or that we should stop trying. But it does suggest that policies designed purely around reducing compliance costs will only go so far. The deeper work is about building the credibility of institutions — making it rational, not just possible, to be formal.</p>`
+  },
+  {
+    id: 2,
+    date: "April 24, 2026",
+    category: "Personal",
+    tagCls: "tag-personal",
+    title: "On being a student of the obvious",
+    excerpt: "Economics is sometimes mocked for proving things everyone already knows. But there's something valuable — even radical — about taking the obvious seriously and asking whether it's actually true.",
+    body: `<p>I've been thinking about the peculiar reputation of economics as a discipline that spends enormous energy proving things everyone already knows. Incentives matter. People respond to prices. Trade creates winners and losers. Yes, and?</p>
+<p>There's something unfair about this criticism, but also something real. The question is whether the journey matters even when the destination seems unsurprising.</p>
+<p>I think it does. What feels obvious often isn't, and what we think we know often turns out to be wrong when you look carefully. The "obvious" fact that minimum wage increases destroy jobs turns out to be far more complicated when you study actual labor markets. The "obvious" intuition that foreign aid makes poor countries poorer is not consistently supported by the evidence. Obvious things, scrutinized, often dissolve.</p>
+<p>Coming to economics from a career in auditing has sharpened this instinct for me. In audit work, the most dangerous assumption is the one everyone shares. The irregularity that catches you by surprise is almost never the one you were looking for — it's the one hiding in plain sight, disguised as normal.</p>
+<p>Maybe that's what I like about economics at its best: the willingness to take obvious things seriously enough to ask whether they're actually true.</p>`
+  },
+  {
+    id: 3,
+    date: "March 28, 2026",
+    category: "AI",
+    tagCls: "tag-ai",
+    title: "When the state delegates to algorithms",
+    excerpt: "My research tries to understand what happens to accountability when government decisions are made by automated systems. The short answer: it gets complicated.",
+    body: `<p>Welfare systems around the world are increasingly making consequential decisions — who gets benefits, who gets flagged for review, who gets denied — using automated tools. The efficiency gains are real. So are the risks.</p>
+<p>My research focuses on what I call the "accountability gap" in algorithmic government: who is responsible when an algorithm makes a wrong decision that harms someone? The answer is rarely clear. The vendor says it's the government's implementation. The civil servant says it's the algorithm. The policymaker says it's an edge case. The person harmed — often the most vulnerable person in the system — gets nothing.</p>
+<p>Part of the problem is that accountability frameworks were designed for human decision-making. When a civil servant denies your welfare claim, there's a clear process: you appeal, a supervisor reviews, there's a record, there's a face. When an algorithm denies it, the reasoning is often opaque, the process for challenging it unclear, and the "who decided?" question genuinely hard to answer.</p>
+<p>The EU AI Act is the most ambitious attempt so far to address this — creating requirements for transparency, human oversight, and redress in high-risk AI systems. But the gap between regulatory intent and on-the-ground reality is where I spend most of my research time.</p>
+<p>What gives me hope is that auditors are starting to pay attention. Supreme audit institutions are beginning to develop frameworks for auditing algorithmic systems. That's the work I want to be part of.</p>`
+  },
+  {
+    id: 4,
+    date: "February 14, 2026",
+    category: "Audit",
+    tagCls: "tag-audit",
+    title: "What auditing the NRC taught me about data and power",
+    excerpt: "Auditing India's National Register of Citizens was the most consequential work of my career. The anomalies we found weren't just statistical noise — they were people's lives.",
+    body: `<p>The National Register of Citizens in Assam was supposed to be a definitive, data-driven answer to one of India's most politically charged questions: who belongs here? It was a massive undertaking — 33 million applications, years of work, enormous public expenditure. And it was, in important ways, a data disaster.</p>
+<p>When our audit team examined the database, we found things that shouldn't have been there. Duplicate entries. Records with inconsistent personal details. Evidence of tampering with dates and identifiers that, had it gone uncorrected, could have meant the difference between citizenship and statelessness for real people.</p>
+<p>The experience taught me something I now consider foundational: data is never neutral. A database is a set of decisions — what to record, how to verify, what counts as a match, who has access, what errors get corrected. When those decisions are made under political pressure, in high-stakes environments, with inadequate oversight, the errors that result are not random. They cluster around the vulnerable.</p>
+<p>I've thought about this a lot since moving into AI governance research. The machine learning systems being deployed in government today are data at an even higher level of abstraction — they encode not just individual decisions but patterns extracted from histories of decisions, which may themselves embed bias. Auditing these systems is harder, but the fundamental imperative is the same: someone has to look.</p>
+<p>That, in the end, is what audit is for. Not to find fraud, though it sometimes does. But to create accountability where accountability might otherwise not exist.</p>`
+  },
+  {
+    id: 5,
+    date: "January 20, 2026",
+    category: "Public Policy",
+    tagCls: "tag-policy",
+    title: "The quiet crisis in public sector technology",
+    excerpt: "Governments are deploying technology faster than they can govern it. The result is a widening gap between what digital government promises and what it actually delivers.",
+    body: `<p>There's a recurring pattern I've observed across years of auditing government technology projects: the procurement goes smoothly, the launch press release gets written, the ribbon is cut — and then, quietly, things start to go wrong. Systems don't integrate. Data doesn't flow. Users find workarounds. The gap between the brochure and the reality widens, silently.</p>
+<p>Part of the problem is incentive misalignment. Vendors are paid to deliver systems, not outcomes. Civil servants are evaluated on project completion, not service quality. Politicians want announcements, not maintenance budgets. The result is a technology graveyard: impressive on paper, dysfunctional in practice.</p>
+<p>India's e-procurement platforms are a case in point. The systems work — transactions happen, records are kept, some efficiency is gained. But the audits I conducted revealed that procurement compliance was patchy at best. The technology created new forms of non-compliance while automating old ones. Cartelization found new channels. Bid manipulation adapted to the digital environment.</p>
+<p>None of this means technology isn't useful — it is, enormously. But it does mean that deployment without governance is not progress. It's just changing the shape of the problem.</p>
+<p>What would it look like to actually govern public sector technology well? I think it starts with audit: independent, technically capable, resourced to look inside the black box. That's a harder thing to build than the technology itself. But it's the work that matters.</p>`
+  },
+  {
+    id: 6,
+    date: "December 10, 2025",
+    category: "Tennis",
+    tagCls: "tag-tennis",
+    title: "What tennis taught me about being a beginner again",
+    excerpt: "I picked up tennis seriously in my late thirties. It's humbling in the best possible way — and it's taught me things about learning that I didn't expect.",
+    body: `<p>I came to tennis late. I had grown up watching it — the drama of Wimbledon, the tactical chess of long clay court rallies — but I didn't start playing seriously until my late thirties. I am, by any objective measure, not good. I am working on being less bad.</p>
+<p>What I didn't expect was how much I would learn from being a beginner again. There's something clarifying about taking up a skill you have no talent for, at an age when you're used to being competent at things. The feedback is immediate and unambiguous. You hit the net. The ball goes wide. Your footwork is wrong and you can feel it.</p>
+<p>There's no hiding from incompetence on a tennis court, and I've found that strangely liberating. In my professional life, I've spent a long time being the person who knows things — who understands the system, reads the data, spots the anomaly. Tennis has no respect for any of that. I am a beginner and the court makes it clear.</p>
+<p>I've also been thinking about what it means to study something that rewards patience over intensity. Tennis — at the level I play — is mostly about not making errors. Not brilliant winners, not spectacular plays. Just keeping the ball in court, one more time, until your opponent makes the mistake. It's a philosophy I've found creeping into other areas of my life.</p>
+<p>I'm not sure I'll ever be good. But I'm certain I'll keep playing.</p>`
+  },
+  {
+    id: 7,
+    date: "November 5, 2025",
+    category: "Economics",
+    tagCls: "tag-econ",
+    title: "The political economy of fiscal transfers",
+    excerpt: "Why do governments send money where they do? The official answer is equity and need. The real answer is more complicated — and more interesting.",
+    body: `<p>One of the most reliable findings in political economy is that fiscal transfers — money that flows from central governments to states, localities, or individuals — are not allocated purely on the basis of need or efficiency. Political considerations matter, often enormously.</p>
+<p>This isn't a cynical observation. It's an empirical one. Study after study, in countries across the development spectrum, finds that politically aligned states and districts receive more. Swing districts get more than safe ones. Electoral cycles affect disbursement timing. The data is clear and the magnitudes are often substantial.</p>
+<p>What does this mean for policy? Evaluating the impact of fiscal transfers is harder than it looks, because allocation isn't random — it's correlated with political variables that also affect outcomes. You need good identification strategies, and even then you need to be careful about what question you're actually answering.</p>
+<p>It also means that institutional design really matters. Independent fiscal councils, formula-based transfer systems, strong audit institutions: these are not just technocratic nice-to-haves. They're the mechanisms by which the political economy of transfers gets disciplined. Where they're weak, money follows votes. Where they're strong, money is more likely to follow need.</p>
+<p>This is, in a roundabout way, why I ended up in audit. It's one of those institutional roles that looks boring from the outside but does genuinely consequential work.</p>`
+  },
+  {
+    id: 8,
+    date: "October 12, 2025",
+    category: "AI",
+    tagCls: "tag-ai",
+    title: "Reading the EU AI Act: what it gets right and what worries me",
+    excerpt: "The EU AI Act is the most comprehensive attempt yet to regulate artificial intelligence. After reading it carefully, I have thoughts — mostly admiring, some skeptical.",
+    body: `<p>I've now read the EU AI Act several times — in its final text and in various summaries — and I want to offer a practitioner's view, from someone who has spent time auditing government technology systems.</p>
+<p>First, what it gets right. The risk-based tiering is sensible. Not all AI systems pose the same risks, and treating them the same would impose costs that don't correspond to actual harms. The designation of welfare, employment, and justice systems as high-risk — requiring transparency, human oversight, and redress mechanisms — is exactly right. These are precisely the domains where algorithmic errors have the most impact on the most vulnerable people.</p>
+<p>The transparency requirements are also welcome. Requiring documentation of training data, testing procedures, and performance metrics creates an audit trail. That matters, because without documentation, accountability is close to impossible.</p>
+<p>What worries me is implementation. The Act creates requirements; it doesn't create the capacity to enforce them. National authorities vary enormously in their technical expertise and political independence. "Human oversight" as written into law and "human oversight" as practiced in a busy welfare office may look very different.</p>
+<p>There's also the question of what happens at the frontier. The Act was negotiated before the current generation of general-purpose AI systems was in wide deployment. The rules are already in a catch-up race with the technology.</p>
+<p>I remain an optimist, cautiously. Getting regulation on the books is the necessary first step. The harder work — building enforcement capacity, closing loopholes, adapting to new systems — comes next.</p>`
+  }
+];
+
+/* ─── State ─── */
+let prevPage = 'home';
+
+/* ─── Tag class map ─── */
+function tagCls(cat) {
+  return {
+    'Public Policy': 'tag-policy',
+    'Audit':         'tag-audit',
+    'Economics':     'tag-econ',
+    'AI':            'tag-ai',
+    'Tennis':        'tag-tennis',
+    'Personal':      'tag-personal'
+  }[cat] || 'tag-personal';
+}
+
+/* ─── Render a post card ─── */
+function renderCard(post, container) {
+  const el = document.createElement('div');
+  el.className = 'post-card';
+  el.innerHTML = `
+    <div class="post-meta">
+      <span class="post-date">${post.date}</span>
+      <span class="tag ${tagCls(post.category)}">${post.category}</span>
+    </div>
+    <div>
+      <h2 class="post-title">${post.title}</h2>
+      <p class="post-excerpt">${post.excerpt}</p>
+      <span class="read-more">Read more →</span>
+    </div>`;
+  el.onclick = () => openPost(post);
+  container.appendChild(el);
+}
+
+/* ─── Init pages ─── */
+function initHome() {
+  const c = document.getElementById('home-posts');
+  c.innerHTML = '';
+  POSTS.slice(0, 5).forEach(p => renderCard(p, c));
+}
+
+function initWriting(filter) {
+  const c = document.getElementById('writing-posts');
+  c.innerHTML = '';
+  (filter === 'all' ? POSTS : POSTS.filter(p => p.category === filter))
+    .forEach(p => renderCard(p, c));
+}
+
+function filterPosts(filter, btn) {
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  initWriting(filter);
+}
+
+/* ─── Open single post ─── */
+function openPost(post) {
+  prevPage = document.querySelector('.page.active').id.replace('page-', '');
+  document.getElementById('post-content').innerHTML = `
+    <div class="post-view-header">
+      <span class="tag ${tagCls(post.category)}">${post.category}</span>
+      <h1>${post.title}</h1>
+      <p class="post-view-date">${post.date}</p>
+    </div>
+    <div class="post-body">${post.body}</div>`;
+  showPage('post');
+}
+
+function goBack() { showPage(prevPage); }
+
+/* ─── Page routing ─── */
+function showPage(name) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
+  document.getElementById('page-' + name).classList.add('active');
+  const nav = document.getElementById('nav-' + name);
+  if (nav) nav.classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+/* ─── Boot ─── */
+initHome();
+initWriting('all');
+</script>
+</body>
+</html>
