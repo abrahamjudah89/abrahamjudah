@@ -362,6 +362,13 @@
       color: var(--text);
       margin-bottom: 22px;
     }
+    .post-body h3 {
+      font-family: Georgia, serif;
+      font-size: 18px;
+      font-weight: bold;
+      color: var(--accent);
+      margin: 8px 0 14px;
+    }
     .post-body p:first-of-type::first-letter {
       font-size: 56px;
       float: left;
@@ -472,9 +479,14 @@
 
       <p class="about-section-label">Experience</p>
       <div class="exp-item">
+        <p class="exp-title">Graduate Student Researcher – TLAB</p>
+        <p class="exp-sub">California Public Utilities Commission (CPUC), San Francisco &nbsp;·&nbsp; May 2026 – Present</p>
+        <p>Working on transportation policy at TLAB, which regulates autonomous vehicles like Waymo and TNC&#x2019;s like Uber in California, analyzing regulatory frameworks governing the deployment of AI-driven transportation systems. Engaging with emerging policy questions at the intersection of AI safety, algorithmic accountability, and public interest regulation in the autonomous vehicle sector.</p>
+      </div>
+      <div class="exp-item">
         <p class="exp-title">Senior Deputy Accountant General / Director of Audit</p>
         <p class="exp-sub">Comptroller and Auditor General of India, Chennai &nbsp;·&nbsp; 2021–2025</p>
-        <p>Led digital systems audits of government e-procurement platforms; identified bid-rigging and fraud through machine learning methods; part of the nodal team for India's audit digitisation project (OIOS).</p>
+        <p>Conducted digital systems audits of government e-procurement/e-service platforms evaluating system controls, data integrity, procurement compliance, and regulatory conformity of large-scale public technology deployments; identified bid-rigging, fraud and cartelisation through structured data analysis and risk-based methods.</p>
       </div>
       <div class="exp-item">
         <p class="exp-title">Deputy Accountant General / Deputy Director of Audit</p>
@@ -510,8 +522,25 @@
         <p class="pub-sub">CAG Report No. 3 of 2023 &nbsp;·&nbsp; <a href="https://tinyurl.com/mrxwmvky" target="_blank">View report →</a></p>
       </div>
 
+      <p class="about-section-label">Certifications</p>
+      <div class="pub-item">
+        <p class="pub-title">Graduate Certificate in Applied Data Sciences</p>
+        <p class="pub-sub">School of Information, UC Berkeley &nbsp;·&nbsp; May 2026</p>
+      </div>
+      <div class="pub-item">
+        <p class="pub-title">Frontier AI Governance — Professional Certification</p>
+        <p class="pub-sub">BlueDot Impact &nbsp;·&nbsp; May 2026</p>
+      </div>
+      <div class="pub-item">
+        <p class="pub-title">Technical AI Safety — Professional Certification</p>
+        <p class="pub-sub">BlueDot Impact &nbsp;·&nbsp; June 2026</p>
+      </div>
+
       <p class="about-section-label">Contact</p>
       <p>Reach me at <a href="mailto:abrahamjudah@berkeley.edu" style="color:var(--accent)">abrahamjudah@berkeley.edu</a></p>
+
+      <p class="about-section-label">Disclaimer</p>
+      <p style="font-size:13.5px; color:var(--muted); line-height:1.8;">All views and opinions expressed on this website are my own and written in a personal capacity. They do not represent the views of the Government of India, UC Berkeley, or any other institution I am affiliated with.</p>
     </div>
   </div>
 </div>
@@ -535,6 +564,28 @@
 <script>
 /* ─── Posts data ─── */
 const POSTS = [
+  {
+    id: 9,
+    date: "June 5, 2026",
+    category: "AI",
+    tagCls: "tag-ai",
+    title: "Can a machine learn to spot procurement fraud the way an auditor does?",
+    excerpt: "For a decade I built hand-weighted risk models to flag suspicious government contracts. For my Machine Learning final project at Berkeley, I tested whether a model could learn those same patterns from real fraud data — and the results reframed how I think about AI in government oversight.",
+    body: `<p>For ten years, I worked as a government auditor, reviewing how public money moves through procurement systems. Auditors don't read every tender by hand; that would be impossible at scale. Instead, we rely on risk methodologies that narrow the field, flagging high value contracts or those handled by certain departments for closer review. In 2022, I built a risk based sampling model for e procurement audits in Tamil Nadu: a scoring system that gave each tender a composite risk score across roughly a dozen weighted parameters such as the number of bids received, whether bids came from suspiciously similar IP addresses, and how close to the deadline the winning bid arrived. Each parameter carried a hand-assigned weight, feeding into one composite score that decided which tenders got a site visit. At the time, that was about as granular as audit methodology could get.</p>
+<p>What stayed with me was how much of that rested on judgment calls made up front: how much should &#x201C;same IP address&#x201D; weigh against &#x201C;unusually fast bid submission,&#x201D; and should that change for a single tender versus a global one? We answered through experience; the weights we landed on were our best guess at how those signals combine.</p>
+<p>So in the final project for Machine Learning course at UC Berkeley, I wanted to test whether a model could pick up where that hand built system left off, not by replacing the red flags auditors trust, but by learning, from confirmed fraud cases, how those flags actually combine, instead of a person guessing at the weights.</p>
+<h3>The Setup</h3>
+<p>The World Bank publishes records of roughly 408,500 contracts financed since 2001, across many sectors, and it maintains a public list of firms formally debarred for fraud, corruption, or collusion. Paired together, these gave me actual ground truth rather than guessed at labels. I matched contract awards to debarred firms using fuzzy name matching to handle spelling variations across hundreds of thousands of supplier names, and built 25 features grounded in the World Bank's own published red flags for procurement fraud: direct awards instead of open competition, prices well above category norms, and unusually concentrated supplier activity. I then trained and compared several classifiers, including logistic regression and a random forest, to see which best separated the roughly 0.4 percent of contracts linked to confirmed fraud from the rest.</p>
+<h3>What the Model Found</h3>
+<p>The random forest reached an AUC-ROC of 0.85, a measure of how well it ranks risky contracts above safe ones, and an AUC-PR of 0.069, a stricter measure of how much real fraud it catches versus how often its alarms are right. AUC-PR matters more than AUC-ROC when the thing you are hunting is rare, and 0.069 is roughly fifteen times better than random flagging would achieve given how rare confirmed fraud actually is.</p>
+<p>Logistic regression struggled by comparison, even with class weighting and SMOTE, which manufactures extra examples of the rare class so the model sees more of it in training. The random forest beat logistic regression by roughly 5.6 times on AUC-PR, and that gap was the most interesting finding of the project: fraud risk does not show up as a simple sum of weighted red flags, it shows up in how those flags interact. A direct award is far more concerning when it is also priced above category norms and tied to a supplier with a sudden burst of activity, and tree based models catch that kind of pattern far better than a method that simply adds up fixed weights, the way my 2022 system did.</p>
+<p>I also ran a regional analysis on East Asia and the Pacific, where it performed comparably, a sign the approach generalizes rather than overfits to whichever regions dominate the dataset.</p>
+<h3>Why a 7% Precision Score Isn't a Failure</h3>
+<p>An AUC-PR of 0.069 might sound unimpressive in isolation; most of what the model flags will not turn out to be confirmed fraud. But that misses the point: no one should suspend a contract because a model flagged it. The realistic use is a cascade: let the model make a first pass across hundreds of thousands of records, surface the highest risk slice for review, and let trained auditors, the people who know how to read a paper trail, make the call. A tool that concentrates the fraud signal fifteenfold before a human looks is not a marginal improvement; it is the difference between reviewing a representative sample and knowing where to look first. That framing, model as triage and human as judgment, is how I think the broader conversation about AI in government oversight should go.</p>
+<h3>What I'd Do Differently</h3>
+<p>A few honest caveats: my labels come only from firms that were caught and formally debarred, which understates the true scope of fraud, and one feature risks leaking information from the labeling process itself, something I would fix in a follow up. None of that changes the basic conclusion: the patterns experienced auditors learn over years of fieldwork are learnable by a model, not perfectly, and not as a replacement for judgment, but well enough to make that judgment go further. That is the kind of tool I would have wanted on my desk a decade ago.</p>
+<p style="font-size:14px; color:var(--muted); font-style:italic;">The full code, methodology, and report for this project are available on <a href="https://github.com/abrahamjudah89/MLProject_WB_Procurement" target="_blank" style="color:var(--accent)">GitHub</a>.</p>`
+  },
   {
     id: 1,
     date: "May 10, 2026",
