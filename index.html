@@ -747,7 +747,7 @@ function filterPosts(filter, btn) {
 }
 
 /* ─── Open single post ─── */
-function openPost(post) {
+function openPost(post, skipHash) {
   prevPage = document.querySelector('.page.active').id.replace('page-', '');
   document.getElementById('post-content').innerHTML = `
     <div class="post-view-header">
@@ -756,24 +756,48 @@ function openPost(post) {
       <p class="post-view-date">${post.date}</p>
     </div>
     <div class="post-body">${post.body}</div>`;
-  showPage('post');
+  showPage('post', true);
+  if (!skipHash) location.hash = 'post-' + post.id;
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-function goBack() { showPage(prevPage); }
+function goBack() {
+  showPage(prevPage);
+  location.hash = prevPage === 'home' ? '' : prevPage;
+}
 
 /* ─── Page routing ─── */
-function showPage(name) {
+function showPage(name, skipHash) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
   document.getElementById('page-' + name).classList.add('active');
   const nav = document.getElementById('nav-' + name);
   if (nav) nav.classList.add('active');
+  if (!skipHash) location.hash = (name === 'home') ? '' : name;
   window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+/* ─── Handle direct links via URL hash (e.g. #post-9, #writing, #about) ─── */
+function routeFromHash() {
+  const hash = location.hash.replace('#', '');
+  if (!hash) { showPage('home', true); return; }
+  if (hash.startsWith('post-')) {
+    const id = parseInt(hash.replace('post-', ''), 10);
+    const post = POSTS.find(p => p.id === id);
+    if (post) { openPost(post, true); return; }
+  }
+  if (hash === 'writing' || hash === 'about' || hash === 'home') {
+    showPage(hash, true);
+    return;
+  }
+  showPage('home', true);
 }
 
 /* ─── Boot ─── */
 initHome();
 initWriting('all');
+routeFromHash();
+window.addEventListener('hashchange', routeFromHash);
 </script>
 </body>
 </html>
